@@ -71,9 +71,6 @@ public class FlutterBuglyPlugin implements MethodCallHandler {
         CrashReport.postException(8, "Flutter Exception", message, detail, map);
         result.success(null);
         break;
-      case "getPlatformVersion":
-        result.success("Android " + android.os.Build.VERSION.RELEASE);
-        break;
       default:
         result.notImplemented();
         break;

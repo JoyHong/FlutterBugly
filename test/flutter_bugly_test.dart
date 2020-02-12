@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_bugly');
@@ -17,7 +16,4 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await FlutterBugly.platformVersion, '42');
-  });
 }

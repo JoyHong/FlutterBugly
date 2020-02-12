@@ -100,8 +100,4 @@ class FlutterBugly {
     await _channel.invokeMethod('postCatchedException', map);
   }
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
 }

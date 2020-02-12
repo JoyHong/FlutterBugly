@@ -39,8 +39,6 @@ binaryMessenger:[registrar messenger]];
     }
     [Bugly reportExceptionWithCategory:5 name:message reason:@" " callStack:stackTraceArray extraInfo:data terminateApp:NO];
         result(nil);
-    } else if ([@"getPlatformVersion" isEqualToString:call.method]) {
-        result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
     } else {
       result(FlutterMethodNotImplemented);
     }
