@@ -52,6 +52,11 @@ class FlutterBugly {
     await _channel.invokeMethod("logError", map);
   }
 
+  ///测试crash
+  static Future<Null> testCrash() async {
+    await _channel.invokeMethod("testCrash");
+  }
+
   ///上报自定义异常信息，data为文本附件
   ///Android 错误分析=>跟踪数据=>extraMessage.txt
   ///iOS 错误分析=>跟踪数据=>crash_attach.log

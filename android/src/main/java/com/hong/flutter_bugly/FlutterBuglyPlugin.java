@@ -72,6 +72,11 @@ public class FlutterBuglyPlugin implements MethodCallHandler {
         result.success(null);
         break;
       }
+      case "testCrash": {
+        CrashReport.testNativeCrash();
+        result.success(null);
+        break;
+      }
       case "postCatchedException": {
         String message = "";
         String detail = null;
