@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.tencent.bugly.crashreport.BuglyLog;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Map;
@@ -40,7 +41,7 @@ public class FlutterBuglyPlugin implements MethodCallHandler {
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     switch (call.method) {
-      case "initBugly":
+      case "initBugly": {
         String appId = call.argument("appId");
         String channel = call.argument("channel");
         String version = call.argument("version");
@@ -50,12 +51,28 @@ public class FlutterBuglyPlugin implements MethodCallHandler {
         CrashReport.initCrashReport(appContext, appId, false, strategy);
         result.success(null);
         break;
-      case "setUserId":
+      }
+      case "setUserId": {
         String userId = call.argument("userId");
         CrashReport.setUserId(appContext, userId);
         result.success(null);
         break;
-      case "postCatchedException":
+      }
+      case "logInfo": {
+        String tag = call.argument("tag");
+        String message = call.argument("message");
+        BuglyLog.i(tag, message);
+        result.success(null);
+        break;
+      }
+      case "logError": {
+        String tag = call.argument("tag");
+        String message = call.argument("message");
+        BuglyLog.e(tag, message);
+        result.success(null);
+        break;
+      }
+      case "postCatchedException": {
         String message = "";
         String detail = null;
         Map<String, String> map = null;
@@ -71,6 +88,7 @@ public class FlutterBuglyPlugin implements MethodCallHandler {
         CrashReport.postException(8, "Flutter Exception", message, detail, map);
         result.success(null);
         break;
+      }
       default:
         result.notImplemented();
         break;

@@ -34,6 +34,36 @@ class FlutterBugly {
     await _channel.invokeMethod('setUserId', map);
   }
 
+  ///打印Info类型的日志
+  static Future<Null> logInfo(String tag, String message) async {
+    Map<String, Object> map = {
+      "tag": tag,
+      "message": message
+    };
+    await _channel.invokeMethod("logInfo", map);
+  }
+
+  ///打印Error类型的日志
+  static Future<Null> logError(String tag, String message) async {
+    Map<String, Object> map = {
+      "tag": tag,
+      "message": message
+    };
+    await _channel.invokeMethod("logError", map);
+  }
+
+  ///上报自定义异常信息，data为文本附件
+  ///Android 错误分析=>跟踪数据=>extraMessage.txt
+  ///iOS 错误分析=>跟踪数据=>crash_attach.log
+  static Future<Null> uploadException(
+      {@required String message, @required String detail, Map data}) async {
+    var map = {};
+    map.putIfAbsent("message", () => message);
+    map.putIfAbsent("detail", () => detail);
+    if (data != null) map.putIfAbsent("data", () => data);
+    await _channel.invokeMethod('postCatchedException', map);
+  }
+
   ///异常上报
   static void postCatchedException<T>(
       T callback(), {
@@ -86,18 +116,6 @@ class FlutterBugly {
       }
       uploadException(message: errorStr, detail: stackTrace.toString());
     });
-  }
-
-  ///上报自定义异常信息，data为文本附件
-  ///Android 错误分析=>跟踪数据=>extraMessage.txt
-  ///iOS 错误分析=>跟踪数据=>crash_attach.log
-  static Future<Null> uploadException(
-      {@required String message, @required String detail, Map data}) async {
-    var map = {};
-    map.putIfAbsent("message", () => message);
-    map.putIfAbsent("detail", () => detail);
-    if (data != null) map.putIfAbsent("data", () => data);
-    await _channel.invokeMethod('postCatchedException', map);
   }
 
 }

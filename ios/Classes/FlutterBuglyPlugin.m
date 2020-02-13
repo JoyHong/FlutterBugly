@@ -26,6 +26,14 @@ binaryMessenger:[registrar messenger]];
     NSString *userId = call.arguments[@"userId"];
     [Bugly setUserIdentifier:userId];
     result(nil);
+  } else if ([@"logInfo" isEqualToString:call.method]) {
+    NSString *tag = call.arguments[@"tag"];
+    NSString *message = call.arguments[@"message"];
+    BLYLogInfo(tag, message);
+  } else if ([@"logError" isEqualToString:call.method]) {
+    NSString *tag = call.arguments[@"tag"];
+    NSString *message = call.arguments[@"message"];
+    BLYLogError(tag, message);
   } else if ([@"postCatchedException" isEqualToString:call.method]) {
     NSString *detail = call.arguments[@"detail"];
     NSString *message = call.arguments[@"message"];
